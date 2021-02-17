@@ -13,6 +13,13 @@ const App: React.FC = () => {
       <Totals />
       <Search />
       <Data />
+      <div className='small-container'>
+        <img
+          src='./marty.png'
+          className='responsive-image'
+          alt='Marty'
+        />
+      </div>
       <Footer />
     </div>
   )

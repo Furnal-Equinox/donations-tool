@@ -14,11 +14,15 @@ const Totals: React.FC = () => {
     totals, setTotals
   ] = React.useState<DonorTotals | null>(null)
 
+  const [timeLastChecked, setTimeLastChecked] = React.useState<string | null>(null)
+
   React.useEffect(() => {
     const fetchTotals = async (): Promise<void> => {
       const data = await getTotals()
       setTotals(data)
     }
+
+    setTimeLastChecked(new Date().toLocaleString())
 
     fetchTotals()
       .catch((err: any) => console.error(err))
@@ -26,6 +30,8 @@ const Totals: React.FC = () => {
     const interval = setInterval(() => {
       fetchTotals()
         .catch((err: any) => console.error(err))
+
+      setTimeLastChecked(new Date().toLocaleString())
     }, timeToCheck)
 
     return () => clearInterval(interval)
@@ -42,6 +48,9 @@ const Totals: React.FC = () => {
       <h3>{`Donations so far: CAD$ ${totals?.amountDonated ?? 0}`}</h3>
       <h3>{`(${getPercentOfGoal()} % of CAD$ ${donationGoal} goal)`}</h3>
       <h3>{`Number of donors: ${totals?.numberOfDonors ?? 0}`}</h3>
+      <h4>
+        {`Time last checked: ${timeLastChecked ?? 'unknown'}`}
+      </h4>
     </section>
   )
 }

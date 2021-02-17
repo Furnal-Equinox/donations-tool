@@ -1,8 +1,8 @@
 import React from 'react'
 import { Donor } from '../core/api'
 
-const Donors: React.FC<{ donors: Donor[] | null }> = ({
-  donors
+const Donors: React.FC<{ donors: Donor[] | null, loading: boolean }> = ({
+  donors, loading
 }) => {
   const fields: string[] = [
     'Fur Name',
@@ -57,13 +57,16 @@ const Donors: React.FC<{ donors: Donor[] | null }> = ({
   }
 
   return (
-    donors !== null
-      ? <Table fields={fields} records={donors} />
-      : (
-        <h3>
-          No data.
-        </h3>
-      )
+    <>
+      {loading
+        ? <h3>Loading...</h3>
+        : (donors !== null
+          ? <Table fields={fields} records={donors} />
+          : (
+            <h3>No data.</h3>
+          )
+        )}
+    </>
   )
 }
 

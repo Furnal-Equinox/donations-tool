@@ -9,6 +9,8 @@ import Donors from './donors'
 
 const Data: React.FC = () => {
   const [data, setData] = React.useState<Donor[] | null>(null)
+  const [loading, setLoading] = React.useState<boolean>(false)
+
   return (
     <section className='content-section'>
       <h1>Get a List of All Donors</h1>
@@ -22,9 +24,16 @@ const Data: React.FC = () => {
               className='round-button'
               onClick={event => {
                 event.preventDefault()
+                setLoading(true)
                 getAllDonors()
-                  .then(data => setData(data))
-                  .catch((err: any) => console.error(err))
+                  .then(data => {
+                    setLoading(false)
+                    setData(data)
+                  })
+                  .catch((err: any) => {
+                    setLoading(false)
+                    console.error(err)
+                  })
               }}
             >
               Get the list
@@ -32,7 +41,7 @@ const Data: React.FC = () => {
           </div>
         </div>
       </div>
-      <Donors donors={data} />
+      <Donors donors={data} loading={loading} />
     </section>
   )
 }
