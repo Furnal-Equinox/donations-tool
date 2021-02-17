@@ -1,6 +1,8 @@
 import React from 'react'
 import { Donor } from '../core/api'
 
+import { Ellipsis } from 'react-css-spinners'
+
 const Donors: React.FC<{ donors: Donor[] | null, loading: boolean }> = ({
   donors, loading
 }) => {
@@ -59,7 +61,7 @@ const Donors: React.FC<{ donors: Donor[] | null, loading: boolean }> = ({
   return (
     <>
       {loading
-        ? <h3>Loading...</h3>
+        ? <Ellipsis color='#404040' />
         : (donors !== null
           ? <Table fields={fields} records={donors} />
           : (
