@@ -1,4 +1,4 @@
-# ![Furnal Equinox logo](./static/favicon.ico) Donations Tool
+# ![Furnal Equinox logo](./public/favicon.ico) Donations Tool
 ### A simple dashboard for keeping track of donations
 
 Hello! This repository houses the code for Furnal Equinox's donations tool.
