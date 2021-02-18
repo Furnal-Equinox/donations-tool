@@ -25,11 +25,11 @@ export const getAllDonors = async (): Promise<Donor[] | null> => {
     )
 
     if (doesRecordExist) {
-      const document = await faunaClient.query<faunadb.values.Document<Donor[]>>(
+      const document = await faunaClient.query<faunadb.values.Document<Donor | Donor[]>>(
         q.Get(q.Match(q.Index('allDonors')))
       )
 
-      return document.data
+      return Array.isArray(document.data) ? document.data : [document.data]
     } else {
       return null
     }
