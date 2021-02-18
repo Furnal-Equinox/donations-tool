@@ -26,9 +26,10 @@ This website was built with these tools, if for some reason the website build fa
       3. Or [install Windows Subsystem for Linux 2](https://docs.microsoft.com/en-us/windows/wsl/install-win10#manual-installation-steps) and install nvm in the Linux VM you chose using the [directions in the GitHub repository for nvm](https://github.com/nvm-sh/nvm#install--update-script). After this, you may follow the directions above for macOS and Linux. ***Warning: This option is somewhat involved, and you may need to enable VM features in your BIOS to get this to work.***
 2. Click on the green "Code" button at the top of the repository and clone or download this repository.
 3. `cd` into the directory and run `yarn` to install all the dependencies for this website.
-4. Run `yarn start` to start the local development server.
-5. If all went well, the website will be ready at `http://localhost:3000/`.
-6. Enjoy!!
+4. Rename `.env.example` to `.env` and change the values of the environment variables as needed.
+5. Run `yarn start` to start the local development server.
+6. If all went well, the website will be ready at `http://localhost:3000/`.
+7. Enjoy!!
 
 
 # 🪄 NPM Script Info 🪄
