@@ -7,18 +7,7 @@ const Footer: React.FC = () => {
         &copy; Anthropomorphic Events of Ontario 2020 - {new Date().getFullYear()}
       </p>
       <p>
-        This program and its source code are licensed under the Affero GNU General Public License version 3 or later.
-        <br />
-        You may find the original AGPL at{' '}
-        <a
-          title="Link to the original AGPL on the Free Software Foundation's GNU website"
-          href='https://www.gnu.org/licenses/agpl-3.0.en.html'
-          target='_blank'
-          rel='noopener noreferrer'
-        >
-          https://www.gnu.org/licenses/agpl-3.0.en.html
-        </a>
-        .
+        This program and its source code are licensed under the MIT license.
         <br />
         You may view and download the source code for this program at{' '}
         <a

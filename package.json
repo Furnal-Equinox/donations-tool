@@ -8,7 +8,7 @@
     "url": "https://github.com/Furnal-Equinox/donations-tool"
   },
   "private": true,
-  "license": "AGPL-3.0-or-later",
+  "license": "MIT",
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
