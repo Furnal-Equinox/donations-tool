@@ -31,12 +31,12 @@ export const getAllDonors = async (): Promise<Donor[] | null> => {
     if (doesRecordExist) {
       const document = await faunaClient.query<faunadb.values.Document<AllDonors>>(
         q.Map(
-          q.Paginate(q.Documents(q.Collection('Donor'))),
+          q.Paginate(q.Documents(q.Collection('Donor')), { size: 3000 }),
           q.Lambda(x => q.Get(x))
         )
       )
 
-      return document.data.map(x => x.data)
+      return document.data.map(x => x.data).filter(x => x.hasDonated)
     } else {
       return null
     }
