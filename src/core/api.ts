@@ -12,6 +12,10 @@ export interface Donor {
   hasDonated: boolean
 }
 
+export type AllDonors = Array<{
+  data: Donor
+}>
+
 export const getAllDonors = async (): Promise<Donor[] | null> => {
   const q = faunadb.query
 
@@ -25,11 +29,14 @@ export const getAllDonors = async (): Promise<Donor[] | null> => {
     )
 
     if (doesRecordExist) {
-      const document = await faunaClient.query<faunadb.values.Document<Donor | Donor[]>>(
-        q.Get(q.Match(q.Index('allDonors')))
+      const document = await faunaClient.query<faunadb.values.Document<AllDonors>>(
+        q.Map(
+          q.Paginate(q.Documents(q.Collection('Donor'))),
+          q.Lambda(x => q.Get(x))
+        )
       )
 
-      return Array.isArray(document.data) ? document.data : [document.data]
+      return document.data.map(x => x.data)
     } else {
       return null
     }
