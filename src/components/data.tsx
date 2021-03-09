@@ -10,7 +10,7 @@ const Data: React.FC = () => {
 
   const fetchAllDonors = async () => {
     try {
-      const res = await fetch('./netlify/functions/fetch-all-donors', {
+      const res = await fetch('/.netlify/functions/fetch-all-donors', {
         method: 'POST'
       })
 

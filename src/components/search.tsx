@@ -16,7 +16,7 @@ const Search: React.FC = () => {
     setLoading(true)
     
     try {
-      const res = await fetch('./netlify/functions/search', {
+      const res = await fetch('/.netlify/functions/search', {
         method: 'POST',
         body: JSON.stringify({
           type: 'FurName',
@@ -40,7 +40,7 @@ const Search: React.FC = () => {
     setLoading(true)
     
     try {
-      const res = await fetch('./netlify/functions/search', {
+      const res = await fetch('/.netlify/functions/search', {
         method: 'POST',
         body: JSON.stringify({ 
           type: 'EmailAddress',
@@ -64,7 +64,7 @@ const Search: React.FC = () => {
     setLoading(true)
     
     try {
-      const res = await fetch('./netlify/functions/search', {
+      const res = await fetch('/.netlify/functions/search', {
         method: 'POST',
         body: JSON.stringify({ 
           type: 'DiscordHandle',
