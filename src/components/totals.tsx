@@ -46,17 +46,15 @@ const Totals: React.FC = () => {
     return () => clearInterval(interval)
   }, [])
 
-  const getPercentOfGoal = (): string => {
-    const percent: number = ((totals?.amountDonated ?? 0) / donationGoal) * 100
-    return percent.toFixed()
-  }
+  const getPercentOfGoal = (): number =>
+    ((totals?.amountDonated ?? 0) / donationGoal) * 100
 
   return (
     <section className='content-section'>
       <h2>Current Totals</h2>
-      <h3>{`Donations so far: CAD$ ${totals?.amountDonated ?? 0}`}</h3>
-      <h3>{`(${getPercentOfGoal()} % of CAD$ ${donationGoal} goal)`}</h3>
-      <h3>{`Number of donors: ${totals?.numberOfDonors ?? 0}`}</h3>
+      <h3>{`Donations so far: CAD$ ${(totals?.amountDonated ?? 0).toFixed()}`}</h3>
+      <h3>{`(${getPercentOfGoal().toFixed()} % of CAD$ ${donationGoal} goal)`}</h3>
+      <h3>{`Number of unique donors: ${totals?.numberOfDonors ?? 0}`}</h3>
       <h4>
         {`Time last checked: ${timeLastChecked ?? 'unknown'}`}
       </h4>
