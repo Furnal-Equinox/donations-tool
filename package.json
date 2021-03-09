@@ -13,8 +13,11 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "plzfixmycode": "yarn ts-standard ./src --fix",
-    "clean": "yarn rimraf ./build"
+    "plzfixmycode": "yarn ts-standard ./src --fix --project ./tsconfig.json;  yarn ts-standard ./functions --fix --project ./functions/tsconfig.json",
+    "netlify-functions-build": "tsc --project ./functions/tsconfig.json",
+    "netlify-functions-clean": "rimraf ./functions/build",
+    "clean-all": "yarn netlify-functions-clean",
+    "build-all": "yarn netlify-functions-build && yarn build"
   },
   "devDependencies": {
     "@testing-library/jest-dom": "^5.11.9",
@@ -31,6 +34,7 @@
     "typescript": "^4.1.5"
   },
   "dependencies": {
+    "@types/aws-lambda": "^8.10.72",
     "faunadb": "^4.0.3",
     "react": "^17.0.1",
     "react-css-spinners": "^4.0.2",

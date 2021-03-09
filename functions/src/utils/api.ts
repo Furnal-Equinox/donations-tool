@@ -1,20 +1,6 @@
 import * as faunadb from 'faunadb'
 
-export interface Totals {
-  numberOfDonors: number
-  amountDonated: number
-}
-
-export interface Donor {
-  furName: string
-  discordHandle?: string
-  emailAddress: string
-  hasDonated: boolean
-}
-
-export type AllDonors = Array<{
-  data: Donor
-}>
+import { AllDonors, Donor, Totals } from './types'
 
 export const getAllDonors = async (): Promise<Donor[] | null> => {
   const q = faunadb.query

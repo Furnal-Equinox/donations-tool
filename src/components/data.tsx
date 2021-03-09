@@ -1,15 +1,30 @@
 import React from 'react'
 
-import {
-  Donor,
-  getAllDonors
-} from '../core/api'
-
 import Donors from './donors'
+
+import { Donor } from '../types'
 
 const Data: React.FC = () => {
   const [data, setData] = React.useState<Donor[] | null>(null)
   const [loading, setLoading] = React.useState<boolean>(false)
+
+  const fetchAllDonors = async () => {
+    try {
+      const res = await fetch('./netlify/functions/fetch-all-donors', {
+        method: 'POST'
+      })
+
+      const data: Donor[] | null = await res.json()
+
+      setLoading(false)
+      
+      setData(data)
+    } catch (err: any) {
+      setLoading(false)
+
+      console.error(err)
+    }
+  }
 
   return (
     <section className='content-section'>
@@ -24,17 +39,13 @@ const Data: React.FC = () => {
               className='round-button'
               onClick={event => {
                 event.preventDefault()
+
                 setLoading(true)
-                getAllDonors()
-                  .then(data => {
-                    setLoading(false)
-                    setData(data)
-                  })
-                  .catch((err: any) => {
-                    setLoading(false)
-                    console.error(err)
-                  })
-              }}
+
+                fetchAllDonors()
+                  .catch((err: any) => console.error(err))
+                }
+              }
             >
               Get the list
             </button>

@@ -1,11 +1,8 @@
 import React from 'react'
 import { Ellipsis } from 'react-css-spinners'
 import {
-  Donor,
-  getDonorByDiscordHandle,
-  getDonorByEmailAddress,
-  getDonorByFurName
-} from '../core/api'
+  Donor
+} from '../types'
 
 const Search: React.FC = () => {
   const [furNameSearchTerm, setFurNameSearchTerm] = React.useState<string>('')
@@ -14,6 +11,78 @@ const Search: React.FC = () => {
   const [donorResult, setDonorResult] = React.useState<Donor | null>(null)
 
   const [loading, setLoading] = React.useState<boolean>(false)
+
+  const fetchDonorByFurName = async (furNameSearchTerm: string) => {
+    setLoading(true)
+    
+    try {
+      const res = await fetch('./netlify/functions/search', {
+        method: 'POST',
+        body: JSON.stringify({
+          type: 'FurName',
+          term: furNameSearchTerm
+        })
+      })
+
+      const data: Donor | null = await res.json()
+
+      setLoading(false)
+
+      setDonorResult(data)
+    } catch (err: any) {
+      setLoading(false)
+
+      console.error(err)
+    }
+  }
+
+  const fetchDonorByEmailAddress = async (emailAddressSearchTerm: string) => {
+    setLoading(true)
+    
+    try {
+      const res = await fetch('./netlify/functions/search', {
+        method: 'POST',
+        body: JSON.stringify({ 
+          type: 'EmailAddress',
+          term: emailAddressSearchTerm
+        })
+      })
+
+      const data: Donor | null = await res.json()
+
+      setLoading(false)
+
+      setDonorResult(data)
+    } catch (err: any) {
+      setLoading(false)
+
+      console.error(err)
+    }
+  }
+
+  const fetchDonorByDiscordHandle = async (discordHandleSearchTerm: string) => {
+    setLoading(true)
+    
+    try {
+      const res = await fetch('./netlify/functions/search', {
+        method: 'POST',
+        body: JSON.stringify({ 
+          type: 'DiscordHandle',
+          term: discordHandleSearchTerm
+        })
+      })
+
+      const data: Donor | null = await res.json()
+
+      setLoading(false)
+
+      setDonorResult(data)
+    } catch (err: any) {
+      setLoading(false)
+
+      console.error(err)
+    }
+  }
 
   return (
     <section className='content-section'>
@@ -25,14 +94,9 @@ const Search: React.FC = () => {
         <form
           onSubmit={event => {
             event.preventDefault()
-            setLoading(true)
-            getDonorByFurName(furNameSearchTerm)
-              .then(data => {
-                setLoading(false)
-                setDonorResult(data)
-              })
+            
+            fetchDonorByFurName(furNameSearchTerm)
               .catch((err: any) => {
-                setLoading(false)
                 console.error(err)
               })
           }}
@@ -57,13 +121,8 @@ const Search: React.FC = () => {
           onSubmit={event => {
             event.preventDefault()
             setLoading(true)
-            getDonorByEmailAddress(emailAddressSearchTerm)
-              .then(data => {
-                setLoading(false)
-                setDonorResult(data)
-              })
+            fetchDonorByEmailAddress(emailAddressSearchTerm)
               .catch((err: any) => {
-                setLoading(false)
                 console.error(err)
               })
           }}
@@ -88,13 +147,8 @@ const Search: React.FC = () => {
           onSubmit={event => {
             event.preventDefault()
             setLoading(true)
-            getDonorByDiscordHandle(discordHandleSearchTerm)
-              .then(data => {
-                setLoading(false)
-                setDonorResult(data)
-              })
+            fetchDonorByDiscordHandle(discordHandleSearchTerm)
               .catch((err: any) => {
-                setLoading(false)
                 console.error(err)
               })
           }}

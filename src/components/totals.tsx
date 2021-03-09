@@ -1,5 +1,5 @@
 import React from 'react'
-import { Totals as DonorTotals, getTotals } from '../core/api'
+import { Totals as DonorTotals } from '../types'
 
 const Totals: React.FC = () => {
   const donationGoal = parseInt(
@@ -18,8 +18,17 @@ const Totals: React.FC = () => {
 
   React.useEffect(() => {
     const fetchTotals = async (): Promise<void> => {
-      const data = await getTotals()
-      setTotals(data)
+      try {
+        const res = await fetch('/.netlify/functions/fetch-totals', {
+          method: 'POST'
+        })
+
+        const data = await res.json()
+
+        setTotals(data)
+      } catch (err: any) {
+        console.error(err)
+      }
     }
 
     setTimeLastChecked(new Date().toLocaleString())

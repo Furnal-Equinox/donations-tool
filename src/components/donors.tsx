@@ -1,5 +1,5 @@
 import React from 'react'
-import { Donor } from '../core/api'
+import { Donor } from '../types'
 
 import { Ellipsis } from 'react-css-spinners'
 
